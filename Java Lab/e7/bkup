@@ -1,0 +1,24 @@
+if(days >= 360) {
+    yy += (days/360);
+    days %= 360;
+}
+
+if(days >= 30) {
+    // if after adding months to the current exceeds 12
+    // then set month to result of days/30 and increment the year. 
+    if(mm + (days/30) > 12) {
+        mm = days/30;
+        yy++;
+    } else {
+        mm += (days/30);
+    }
+    days %= 30;
+}
+
+if(dd + days > 31) {
+    days -= (30 - dd); // remove the days that need to be in the first month 
+    dd = days;
+    mm++;
+} else {
+    dd += days;
+}
