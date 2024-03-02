@@ -19,7 +19,6 @@ begin:
     mov ah, 02h
     int 21h
    
-   
     mov ax, dvi 
     mov bx, 10
     mov dx, 0

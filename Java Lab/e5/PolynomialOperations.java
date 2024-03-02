@@ -16,7 +16,7 @@ public class PolynomialOperations {
                     System.out.print(resCoeff);
             }
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
 
@@ -36,7 +36,7 @@ public class PolynomialOperations {
                     System.out.print(resCoeff);
             }
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
     public static void multiply(int[] eq1, int[] eq2) {
@@ -57,10 +57,15 @@ public class PolynomialOperations {
                     System.out.print(ans[i]);
             }
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
     public static void divide(int[] num, int[] deno) {
+        if(num.length < deno.length) {
+             System.out.println("can't divide a lower degree polynomial(numerator) by higher degree polynomial(denominator)\n");
+             return;
+        }
+
         System.out.print("NUMERATOR: ");
         printNumRem(num);
         System.out.print("DENOMINATOR: ");
@@ -102,6 +107,10 @@ public class PolynomialOperations {
 
     public static void operatePolynomial(int[] eq1, int[] eq2, String operation) {
         int max_len = Math.max(eq1.length, eq2.length);
+        System.out.print("Poly 1: ");
+        printNumRem(eq1);
+        System.out.print("Poly 2: ");
+        printNumRem(eq2);
 
         switch(operation) {
             case "add":
@@ -123,7 +132,7 @@ public class PolynomialOperations {
     }
 
     public static void main(String[] args) {
-        // Decreasing order coeffs {3, 2, 1} <- like this.
+        // Decreasing order exponents {3, 2, 1} <- like this.
 
         int[] eq1 = {2, 1};
         int[] eq2 = {4, 0, 5, 6};
@@ -139,6 +148,14 @@ public class PolynomialOperations {
         operatePolynomial(eq1, eq2, "add");
         operatePolynomial(eq1, eq2, "sub");
         operatePolynomial(eq2, eq1, "multiply");
+        operatePolynomial(eq2, eq1, "divide");
+
+        eq1 = new int[] {5, 2, 6};
+        eq2 = new int[] {1, 2, 3};
+        
+        operatePolynomial(eq1, eq2, "add");
+        operatePolynomial(eq1, eq2, "sub");
+        operatePolynomial(eq1, eq2, "multiply");
         operatePolynomial(eq1, eq2, "divide");
     }
 }
