@@ -1,0 +1,6 @@
+- for random nums use the current system time in milliseconds
+- or else use some other pseudo random number generator algorithm 
+
+https://codegym.cc/groups/posts/generating-random-numbers-in-java
+
+went with linear congruential algorithm.

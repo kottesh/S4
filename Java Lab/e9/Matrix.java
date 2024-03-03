@@ -1,122 +1,190 @@
+/* 
+ * @ Author: Shree Kottes 
+ * @ Date: 03-03-2024
+*/
+
 public class Matrix{
-    public static void display(float[][] matrix) {
-        for(int i = 0; i < matrix.length; i++) {
-            for(int j = 0; j < matrix[i].length; j++) {
-                System.out.print(matrix[i][j] + " ");
+    private float[][] data; 
+    private int row;
+    private int col;
+
+    public Matrix() {/* default constructor */}
+
+    public Matrix(int row, int col, float[][] matrix) {
+        this.row = row;
+        this.col = col;
+        this.data = copyMatrix(matrix); 
+    }
+
+    public Matrix(int row, int col) {
+        this.row = row;
+        this.col = col;
+        this.data = new float[row][col];
+    }
+
+    private float[][] copyMatrix(float[][] source) {
+        float[][] result = new float[row][col]; // how it access the row, col -> the func copyMatrix have the access through object that is called on. 
+
+        for(int i = 0; i < row; i++) {
+            for(int j = 0; j < col; j++) {
+                result[i][j] = source[i][j];
+            }
+        }
+        return result;
+    }
+
+    private void set(int x, int y, float value) {
+        this.data[x][y] += value;
+    }
+
+    private float get(int x, int y) {
+        return this.data[x][y];
+    }
+
+    private void display() {
+        for(int i = 0; i < this.row ; i++) {
+            for(int j = 0; j < this.col ; j++) {
+                System.out.print(get(i, j) + " ");
             }
             System.out.println();
         }
         System.out.print("\n");
     }
 
-    public static void add(float[][] mat_x, float[][] mat_y) {
-        if(mat_x.length != mat_y.length || mat_x[mat_x.length-1].length != mat_y[mat_y.length-1].length) {
-            System.out.println("Order Should be Same..");
-            System.exit(1);
+    public static void matrixInfo(Matrix mat_A, Matrix mat_B) {
+        System.out.println("Matrix 1");
+        mat_A.display();
+
+        System.out.println("Matrix 2");
+        mat_B.display();
+    }
+
+    private Matrix add(Matrix other) {
+        System.out.println("ADD:");
+        if(this.row != other.row || this.col != other.col) {
+            System.out.println("Order Should be Same...");
+            return new Matrix();
         }
 
-        display(mat_x);
-        display(mat_y);
+        Matrix ans = new Matrix(this.row, this.col);
 
-        float[][] ans = new float[mat_x.length][mat_x[0].length];     
-
-        for(int i = 0; i < mat_x.length; i++) {
-            for(int j = 0; j < mat_x[i].length; j++) {
-                ans[i][j] = mat_x[i][j] + mat_y[i][j];
+        for(int i = 0; i < ans.row; i++) {
+            for(int j = 0; j < ans.col; j++) {
+                ans.set(i, j, this.get(i, j) + other.get(i, j));
             }
         }
         
-        display(ans);
+        return ans;
     } 
 
-    public static void subtract(float[][] mat_x, float[][] mat_y) {
-        if(mat_x.length != mat_y.length || mat_x[mat_x.length-1].length != mat_y[mat_y.length-1].length) {
-            System.out.println("Order Should be Same..");
-            return;
+    private Matrix subtract(Matrix other) {
+        System.out.println("SUBTRACT:");
+        if(this.row != other.row || this.col != other.col) {
+            System.out.println("Order Should be Same...");
+            return new Matrix();
         }
 
-        display(mat_x);
-        display(mat_y);
+        Matrix ans = new Matrix(this.row, this.col);
 
-        float[][] ans = new float[mat_x.length][mat_x[0].length];     
-
-        for(int i = 0; i < mat_x.length; i++) {
-            for(int j = 0; j < mat_x[i].length; j++) {
-                ans[i][j] = mat_x[i][j] - mat_y[i][j];
+        for(int i = 0; i < ans.row; i++) {
+            for(int j = 0; j < ans.col; j++) {
+                ans.set(i, j, this.get(i, j) - other.get(i, j));
             }
         }
         
-        display(ans);
+        return ans;
+
     } 
 
-    public static void multiply(float[][] mat_x, float[][] mat_y) {
-        if(mat_x[0].length != mat_y.length) {
+    private Matrix multiply(Matrix other) {
+        System.out.println("MULTIPLY:");
+        if(this.col != other.row) {
             System.out.println("column in matrix 1 is NOT EQUAL to row in matrix 2");
-            return;
+            return new Matrix();
         }
 
-        float[][] ans = new float[mat_x.length][mat_y[0].length];
+        Matrix ans = new Matrix(this.row, other.col);
         
-        for(int k = 0; k < mat_x.length; k++) { // for to be in the same row in mat 1
-            for(int i = 0; i < mat_y[0].length; i++) { // iterate over no of cols in mat 2
-                for(int j = 0; j <  mat_y.length; j++) { // iterate over no of elements in the matrix(each row in mat 1 and column in mat 2)
-                    ans[k][i] += mat_x[k][j] * mat_y[j][i];
+        for(int k = 0; k < this.row; k++) { // for to be in the same row in mat 1
+            for(int i = 0; i < other.col; i++) { // iterate over no of cols in mat 2
+                for(int j = 0; j <  this.col; j++) { // iterate over no of elements in the matrix(each row in mat 1 and column in mat 2)
+                    ans.set(k, i, this.get(k, j) * other.get(j, i));
                 }
             }
         }
 
-        display(ans);
-    }
-
-    public static void operateMatrix(float[][] mat_x, float[][] mat_y, String operation) {
-        System.out.println("Matrix A");
-        display(mat_x);
-        System.out.println("Matrix B");
-        display(mat_y);
-
-        switch (operation) {
-            case "add":
-                add(mat_x, mat_y);
-                break;
-            case "subtract":
-                subtract(mat_x, mat_y);
-                break;
-            case "multiply":
-                multiply(mat_x, mat_y);
-                break;
-            default:
-                System.out.println("UNKNOWN OPERATION: " + operation);
-        }
+        return ans;
     }
 
     public static void main(String[] args) {
-        //test cases
+        Matrix mat_A = new Matrix(
+            2, 2,
+            new float[][] {
+                {4, 2},
+                {2, 5},
+            }
+        );
 
-        float[][] mat_A = {
-            {4, 2},
-            {2, 5},
-        };
+        Matrix mat_B = new Matrix(
+            2, 2,
+            new float[][] {
+                {1, 0},
+                {0, 1},
+            }
+        );
 
-        float[][] mat_B = {
-            {1, 0},
-            {0, 1},
-        };
+        matrixInfo(mat_A, mat_B);
+        
+        mat_A.add(mat_B).display();
+        mat_A.subtract(mat_B).display();
+        mat_A.multiply(mat_B).display();
 
-        mat_A = new float[][] {
-            {4, 2, 1},
-            {2, 3.3f, 0},
-            {6, 6, 8}
-        };
+        mat_A = new Matrix(
+            3, 3, 
+            new float[][] {
+                {4, 2, 1},
+                {2, 3.3f, 0},
+                {6, 6, 8}
+            }
+        );
 
-        mat_B = new float[][] {
-            {2, 2, 0},
-            {1, 2, 8},
-            {9, 0, 1}
-        };
+        mat_B = new Matrix(
+            3, 3,
+            new float[][] {
+                {2, 2, 0},
+                {1, 2, 8},
+                {9, 0, 1}
+            }
+        );
 
+        matrixInfo(mat_A, mat_B);
 
-        operateMatrix(mat_A, mat_B, "add");
-        operateMatrix(mat_A, mat_B, "subtract");
-        operateMatrix(mat_A, mat_B, "multiply");
+        mat_A.add(mat_B).display();
+        mat_A.subtract(mat_B).display();
+        mat_A.multiply(mat_B).display();
+
+        mat_A = new Matrix(
+            3, 2, 
+            new float[][] {
+                {4, 2},
+                {2, 0},
+                {6, 6}
+            }
+        );
+
+        mat_B = new Matrix(
+            3, 2,
+            new float[][] {
+                {2, 0},
+                {1, 2},
+                {9, 0}
+            }
+        );
+
+        matrixInfo(mat_A, mat_B);
+
+        mat_A.add(mat_B).display();
+        mat_A.subtract(mat_B).display();
+        mat_A.multiply(mat_B).display();
     }
 }
