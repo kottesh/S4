@@ -23,10 +23,11 @@ public class PolynomialOperations {
     public static void subtract(int[] eq1, int[] eq2, int max_len) {
         System.out.print("SUBTRACT: ");
         for(int i=0; i<max_len; i++) {
-            //int coeff1 = (i < eq1.length) ? eq1[i] : 0;
-            //int coeff2 = (i < eq2.length) ? eq2[i] : 0;
             int coeff1 = (i >= max_len - eq1.length) ? eq1[i - (max_len - eq1.length)] : 0;
             int coeff2 = (i >= max_len - eq2.length) ? eq2[i - (max_len - eq2.length)] : 0;
+            //int coeff1 = (i < eq1.length) ? eq1[i] : 0;
+            //int coeff2 = (i < eq2.length) ? eq2[i] : 0;
+            
             int resCoeff = coeff1 - coeff2;
 
             if(resCoeff != 0) {

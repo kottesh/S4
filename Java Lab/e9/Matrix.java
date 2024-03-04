@@ -48,14 +48,16 @@ public class Matrix{
             }
             System.out.println();
         }
-        System.out.print("\n");
+        System.out.println();
     }
 
     public static void matrixInfo(Matrix mat_A, Matrix mat_B) {
         System.out.println("Matrix 1");
+        System.out.println("ORDER: " + mat_A.row + "x" + mat_A.col);
         mat_A.display();
 
         System.out.println("Matrix 2");
+        System.out.println("ORDER: " + mat_B.row + "x" + mat_B.col);
         mat_B.display();
     }
 
@@ -73,7 +75,6 @@ public class Matrix{
                 ans.set(i, j, this.get(i, j) + other.get(i, j));
             }
         }
-        
         return ans;
     } 
 
@@ -100,7 +101,7 @@ public class Matrix{
         System.out.println("MULTIPLY:");
         if(this.col != other.row) {
             System.out.println("column in matrix 1 is NOT EQUAL to row in matrix 2");
-            return new Matrix();
+            return new Matrix(); //dummy
         }
 
         Matrix ans = new Matrix(this.row, other.col);
@@ -174,6 +175,30 @@ public class Matrix{
 
         mat_B = new Matrix(
             3, 2,
+            new float[][] {
+                {2, 0},
+                {1, 2},
+                {9, 0}
+            }
+        );
+
+        matrixInfo(mat_A, mat_B);
+
+        mat_A.add(mat_B).display();
+        mat_A.subtract(mat_B).display();
+        mat_A.multiply(mat_B).display();
+
+        mat_A = new Matrix(
+            3, 3, 
+            new float[][] {
+                {4, 2},
+                {2, 0},
+                {6, 6}
+            }
+        );
+
+        mat_B = new Matrix(
+            3, 3,
             new float[][] {
                 {2, 0},
                 {1, 2},

@@ -11,15 +11,18 @@ public class ComplexNums {
 
     public static void multiply(int[] num1, int[] num2) {
         showNums(num1, num2);
-        int real = num1[0]*num2[0] - num1[1]*num2[1] ;
-        int img = num1[1]*num2[0] + num1[0]*num2[1] ;
+        int real = num1[0] * num2[0] - num1[1] * num2[1] ;
+        int img = num1[1] * num2[0] + num1[0] * num2[1] ;
         System.out.println("MULTIPLY: " + real + " + (" + img + ")i\n");
     } 
 
     public static void divide(int[] num1, int[] num2) {
         showNums(num1, num2);
-        float real = (float)((num1[0]*num2[0] + num1[1]*num2[1])/(Math.pow(num2[0], 2) + Math.pow(num2[1], 2)));
-        float img = (float)((-num1[0]*num2[1] + num1[1]*num2[0])/(Math.pow(num2[0], 2) + Math.pow(num2[1], 2)));
+        //float real = (float)((num1[0] * num2[0] + num1[1] * num2[1]) / (Math.pow(num2[0], 2) + Math.pow(num2[1], 2)));
+        //float img = (float)((-num1[0] * num2[1] + num1[1] * num2[0]) / (Math.pow(num2[0], 2) + Math.pow(num2[1], 2)));
+        float divisor = (num2[0] * num2[0]) + (num2[1]*num2[1]);
+        float real = (float)((num1[0] * num2[0] + num1[1] * num2[1]) / divisor);
+        float img = (float)((-num1[0] * num2[1] + num1[1] * num2[0]) / divisor);
 
         System.out.println("DIVIDE: " + real + " + (" + img + ")i\n");
     }
