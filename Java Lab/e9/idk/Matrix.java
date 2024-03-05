@@ -61,10 +61,10 @@ public class Matrix{
         mat_B.display();
     }
 
-    public Matrix add(Matrix other) {
+    private Matrix add(Matrix other) {
         System.out.println("ADD:");
         if(this.row != other.row || this.col != other.col) {
-            System.out.println("ERROR: both matrix order should be same.");
+            System.out.println("Order Should be Same...");
             return new Matrix();
         }
 
@@ -78,10 +78,10 @@ public class Matrix{
         return ans;
     } 
 
-    public Matrix subtract(Matrix other) {
+    private Matrix subtract(Matrix other) {
         System.out.println("SUBTRACT:");
         if(this.row != other.row || this.col != other.col) {
-            System.out.println("ERROR: both matrix order should be same.");
+            System.out.println("Order Should be Same...");
             return new Matrix();
         }
 
@@ -93,13 +93,12 @@ public class Matrix{
             }
         }
         return ans;
-
     } 
 
-    public Matrix multiply(Matrix other) {
+    private Matrix multiply(Matrix other) {
         System.out.println("MULTIPLY:");
         if(this.col != other.row) {
-            System.out.println("ERROR: column in matrix 1 is NOT EQUAL to row in matrix 2");
+            System.out.println("column in matrix 1 is NOT EQUAL to row in matrix 2");
             return new Matrix(); //dummy
         }
 
@@ -112,82 +111,103 @@ public class Matrix{
                 }
             }
         }
+
         return ans;
     }
 
-    public static void operateMatrix(float[][] mat_1, int row_1, int col_1, float[][] mat_2, int row_2, int col_2) {
-        Matrix mat_A = new Matrix(row_1, col_1, mat_1);
-        Matrix mat_B = new Matrix(row_2, col_2, mat_2);
-        
+    public static void main(String[] args) {
+        Matrix mat_A = new Matrix(
+            2, 2,
+            new float[][] {
+                {4, 2},
+                {2, 5},
+            }
+        );
+
+        Matrix mat_B = new Matrix(
+            2, 2,
+            new float[][] {
+                {1, 0},
+                {0, 1},
+            }
+        );
+
         matrixInfo(mat_A, mat_B);
+        
         mat_A.add(mat_B).display();
         mat_A.subtract(mat_B).display();
         mat_A.multiply(mat_B).display();
-    }
 
-    public static void main(String[] args) {
-        float[][] mat_A = {
-                {4, 2},
-                {2, 5},
-        };
-
-        float[][] mat_B = {
-                {1, 0},
-                {0, 1},
-        };
-
-        operateMatrix(mat_A, 2, 2, mat_B, 2, 2);
-
-        mat_A = new float[][] {
+        mat_A = new Matrix(
+            3, 3, 
+            new float[][] {
                 {4, 2, 1},
                 {2, 3.3f, 0},
                 {6, 6, 8}
-        };
+            }
+        );
 
-        mat_B = new float[][] {
+        mat_B = new Matrix(
+            3, 3,
+            new float[][] {
                 {2, 2, 0},
                 {1, 2, 8},
                 {9, 0, 1}
-        };
-        
-        operateMatrix(mat_A, 3, 3, mat_B, 3, 3);
+            }
+        );
 
-        mat_A = new float[][] {
+        matrixInfo(mat_A, mat_B);
+
+        mat_A.add(mat_B).display();
+        mat_A.subtract(mat_B).display();
+        mat_A.multiply(mat_B).display();
+
+        mat_A = new Matrix(
+            3, 2, 
+            new float[][] {
                 {4, 2},
                 {2, 0},
                 {6, 6}
-        };
+            }
+        );
 
-        mat_B = new float[][] {
+        mat_B = new Matrix(
+            3, 2,
+            new float[][] {
                 {2, 0},
                 {1, 2},
                 {9, 0}
-        };
-        operateMatrix(mat_A, 3, 2, mat_B, 3, 2);
+            }
+        );
 
-        mat_A = new float[][] {
-                {4051, 289, 256.7f},
-                {203.3f, 125.7f, 100.78f},
-        };
+        matrixInfo(mat_A, mat_B);
 
-        mat_B = new float[][] {
-                {2.32f, 0},
-                {187.2f, 89},
-                {98, 108}
-        };
+        mat_A.add(mat_B).display();
+        mat_A.subtract(mat_B).display();
+        mat_A.multiply(mat_B).display();
 
-        operateMatrix(mat_A, 2, 3, mat_B, 3, 2);
-        
-        mat_A = new float[][] {
-                {3, 2}
-        };
+        mat_A = new Matrix(
+            3, 3, 
+            new float[][] {
+                {4, 2},
+                {2, 0},
+                {6, 6}
+            }
+        );
 
-        mat_B = new float[][] {
-                {2.3f},
-                {1},
-                {9}
-        };
-        
-        operateMatrix(mat_A, 1, 2, mat_B, 3, 1);
+        mat_B = new Matrix(
+            3, 3,
+            new float[][] {
+                {2, 0},
+                {1, 2},
+                {9, 0}
+            }
+        );
+
+        matrixInfo(mat_A, mat_B);
+
+        mat_A.add(mat_B).display();
+        mat_A.subtract(mat_B).display();
+        mat_A.multiply(mat_B).display();
     }
 }

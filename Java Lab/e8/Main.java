@@ -3,7 +3,7 @@ class RandomNum {
     private long increment = 11;
     private long modulus = (long) pow(2, 48);
 
-    private double pow(float base, float expo) {
+    private double pow(float base, int expo) {
         if(expo == 0)
             return 1;
         return base * pow(base, expo - 1); 
@@ -14,6 +14,7 @@ class RandomNum {
             System.out.println("ERROR: " + length + " --> provide number of digits greater than 0");
             return;
         }
+
         if((length & (length - 1)) != 0) { // bitwise operation to check if the digit length is power of 2 
             System.out.println("ERROR: " + length + " --> provide number of digits as powers of 2");
             return;
