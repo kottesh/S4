@@ -3,6 +3,7 @@
 USE app;
 
 SELECT * FROM employee;
+SELECT * FROM department;
 
 ALTER TABLE employee
 DROP COLUMN pf;
@@ -50,7 +51,16 @@ WHERE salary = (
     SELECT min(salary) FROM employee
 );
 
--- 5.Display the dept. and minimum salary of department having minimum salary > depatment 20.
+-- 5.Display the dept. and minimum salary of department having minimum salary > department 20.
+SELECT name, MIN(salary)
+FROM employee
+    INNER JOIN department ON employee.department_no = department.no
+GROUP BY department_no
+HAVING MIN(salary) > (
+    SELECT MIN(salary)
+    FROM employee
+    WHERE department_no = 8956  
+);
 
 -- 6.List the employees who get the minimum salary in each department.
 SELECT first_name, salary
