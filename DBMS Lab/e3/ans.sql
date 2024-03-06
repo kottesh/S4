@@ -1,5 +1,9 @@
 -- Joins and Subqueries
 
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+-- some alterations to database
+
 USE app;
 
 SELECT * FROM employee;
@@ -11,6 +15,7 @@ DROP COLUMN pf;
 INSERT INTO employee(first_name, last_name, designation, manager_name, salary, hire_date, commisson, department_no)
 VALUES
 	('Esme', 'Brown', 'Data Analyst', 'Jensen', 500000, '2022-08-07', 1000, 8956),
+/* ------------------------------------------------------------------------------------------------------------------- */
 
 -- 1.List the employee where salary is > Smith.
 SELECT first_name 
@@ -63,9 +68,14 @@ HAVING MIN(salary) > (
 );
 
 -- 6.List the employees who get the minimum salary in each department.
-SELECT first_name, salary
+SELECT first_name, salary, employee.department_no
 FROM employee
-GROUP BY department_no;
+INNER JOIN (
+    SELECT MIN(salary) as min_salary, employee.department_no 
+    FROM employee
+    GROUP BY department_no
+) res 
+ON employee.department_no = res.department_no AND employee.salary = res.min_salary;
 
 -- 7.List the employee details whose salary is less than that of analyst.
 SELECT *
@@ -86,20 +96,20 @@ SELECT *
 FROM employee 
     INNER JOIN department ON employee.department_no = department.no;
 
--- 11. List the employees working under other employees.
+-- 10.List the employees working under other employees.
 SELECT first_name
 FROM employee
 WHERE manager_name IS NOT NULL;
 
--- 12.List the names and grades of employees where
+-- (won't do this one, this is unrelated.) 11.List the names and grades of employees where
 
--- 13.List the employee with second minimum salary.
+-- 12.List the employee with second minimum salary.
 SELECT first_name, salary
 FROM employee
 ORDER BY salary ASC
 LIMIT 1 OFFSET 1;
 
--- 14.List the employees belonging to department of jane.
+-- 13.List the employees belonging to department of jane.
 SELECT first_name  
 FROM employee
 WHERE manager_name LIKE "jane"
