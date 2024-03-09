@@ -49,7 +49,7 @@ public class Main {
         rand.generateNum(16);
         rand.generateNum(32);
 
-        //rand.generateNum(536870912); /* really long */
+        rand.generateNum(536870912); /* really long */
     }
 } 
 
