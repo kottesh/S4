@@ -50,7 +50,7 @@ class RandomNum {
                 break;
             }
             count++;
-            if(count > primeNums.length) {
+            if(count/2 > primeNums.length) {
                 for(int i = 0; i < primeNums.length; i++) {
                     primeNums[i][1] = 0;
                 }
@@ -59,6 +59,13 @@ class RandomNum {
         }
 
         return primeNums[indx][0];
+    }
+
+    public void showPrimes() {
+        for(int i=0; i<primeNums.length; i++) {
+            System.out.print(primeNums[i][0] + ":" + primeNums[i][1] + " ");
+        }
+        System.out.println();
     }
 
     public String generate(int inDigit) {
@@ -77,13 +84,13 @@ class RandomNum {
 
         StringBuilder res = new StringBuilder();
 
-        long multiplier = this.hashCode();
+        long multiplier = this.hashCode() & getRandPrime();
         for(int i = 0; i < outDigit; i++) {
-            int randPrime = getRandPrime(); 
-            int value = (int)((randPrime * multiplier) % 10);
-            value = (value < 0) ? value * -1 : value;
+            int randPrime = getRandPrime();
+            int value = (int)(((randPrime * multiplier) ^ pow(2, inDigit)) % 10);
+            value = (value < 0) ? -value : value;
             res.append(value);
-            multiplier = randPrime * multiplier; 
+            multiplier = (randPrime & multiplier) ^ System.nanoTime(); 
         }
         return res.toString();
     } 
@@ -91,16 +98,13 @@ class RandomNum {
     public static void main(String[] args) {
         RandomNum rand = new RandomNum(); 
 
+        System.out.println(rand.generate(0));
         System.out.println(rand.generate(2)); // in <-- 2 , out --> 2^2 = 4
         System.out.println(rand.generate(2));
-        System.out.println(rand.generate(2));
-        System.out.println(rand.generate(2));
-        System.out.println(rand.generate(3));
-        System.out.println(rand.generate(3));
-        System.out.println(rand.generate(3));
-
-        System.out.println(rand.generate(0));
         System.out.println(rand.generate(1));
-        System.out.println(rand.generate(1));
+        System.out.println(rand.generate(3));
+        System.out.println(rand.generate(2));
+        System.out.println(rand.generate(3));
+        System.out.println(rand.generate(8));
     } 
 }
