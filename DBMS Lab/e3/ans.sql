@@ -35,7 +35,7 @@ WHERE department_no = (
     WHERE id = 1
 );
 
--- 3.Display the employee details where deparment no is same as that of employee 1 and whose salary is same or > employee 2.
+-- 3.Display the employee details where department no is same as that of employee 1 and whose salary is same or > employee 2.
 SELECT *
 FROM employee
 WHERE department_no = (
@@ -113,4 +113,54 @@ LIMIT 1 OFFSET 1;
 SELECT first_name  
 FROM employee
 WHERE manager_name LIKE "jane"
-   
+
+-- 15.Show depno, loc, ename, job titles and salary of employees who work in location 1800.
+SELECT  department_no, first_name, designation, salary
+FROM employee
+INNER JOIN department ON employee.department_no = department.no 
+WHERE location LIKE "John Kicks Block, CBE, IN";
+
+-- 16.How many employees have a name that ends with ‘n’.
+SELECT COUNT(*) AS "count of names end with n"
+FROM employee
+WHERE last_name LIKE "%n";
+
+-- 17.Show the names and location for all department and number of employees working in each
+SELECT department.name, department.location, COUNT(employee.id) AS "Employee Count"
+FROM department
+INNER JOIN employee ON employee.department_no  = department.no
+GROUP BY department.no;
+
+-- 18.Which jobs are found in administration and executive department and how many employees do those jobs?
+
+-- 19.Show department name and number of employee and average salary of all department together with names, salaries and jobs of employees working in each department.
+SELECT department.name, COUNT(employee.id), AVG(employee.salary)
+FROM employee
+    INNER JOIN department ON employee.department_no = department.no 
+GROUP BY department.no;
+
+-- 20.Show the department number and lowest salary of department with the highest average salary.
+
+-- 21.Show the department number, name and location of department where no sales representative work.
+
+-- 22. Show the department number, name and number of employees working in each department that has fewer than 3 employees 
+SELECT department.no, department.name, COUNT(employee.id) AS no_employees
+FROM employee
+    INNER JOIN department ON employee.department_no = department.no
+GROUP BY department_no
+HAVING COUNT(department_no) < 3; 
+
+-- 23. Show the department number, name and number of employees working in each department that has Highest number of employees.
+SELECT department.no, department.name, COUNT(employee.id) AS no_employees
+FROM employee
+    INNER JOIN department ON employee.department_no = department.no
+GROUP BY department_no
+HAVING department_no = (
+    SELECT department_no
+    FROM employee
+    GROUP BY department_no
+    ORDER BY COUNT(department_no) DESC
+    LIMIT 1
+);
+
+-- 24.Show the employee number ,name, salary, department number, average salary in the department for all employees.
