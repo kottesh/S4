@@ -27,5 +27,4 @@ skipto:
     inc bx       
     dec cl
     jnz lp       ; jump to start of loop if cl is not 0 
-
 ret          
