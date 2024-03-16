@@ -134,14 +134,35 @@ GROUP BY department.no;
 -- 18.Which jobs are found in administration and executive department and how many employees do those jobs?
 
 -- 19.Show department name and number of employee and average salary of all department together with names, salaries and jobs of employees working in each department.
-SELECT department.name, COUNT(employee.id), AVG(employee.salary)
+SELECT department.name, 
+       COUNT(employee.id) AS number_of_employees, 
+       AVG(employee.salary) AS average_salary,
+       employee.designation
 FROM employee
     INNER JOIN department ON employee.department_no = department.no 
-GROUP BY department.no;
+GROUP BY employee.department_no, employee.designation;
 
 -- 20.Show the department number and lowest salary of department with the highest average salary.
+SELECT department_no, MIN(salary) AS min_salary
+FROM employee 
+GROUP BY department_no
+HAVING AVG(salary) = (
+    SELECT MAX(avg_salary)
+    FROM (
+        SELECT AVG(salary) as avg_salary
+        FROM employee
+        GROUP BY department_no 
+    ) AS max_avg_sal
+);
 
 -- 21.Show the department number, name and location of department where no sales representative work.
+SELECT no, name, location
+FROM department d
+WHERE d.no IN (
+    SELECT department_no
+    FROM employee
+    WHERE designation NOT LIKE "SALES%" 
+);
 
 -- 22. Show the department number, name and number of employees working in each department that has fewer than 3 employees 
 SELECT department.no, department.name, COUNT(employee.id) AS no_employees
@@ -164,3 +185,7 @@ HAVING department_no = (
 );
 
 -- 24.Show the employee number ,name, salary, department number, average salary in the department for all employees.
+SELECT e.id, e.first_name, e.salary, e.department_no, AVG(e1.salary)
+FROM employee e
+INNER JOIN employee e1 ON e.department_no = e1.department_no
+GROUP BY e.id;
