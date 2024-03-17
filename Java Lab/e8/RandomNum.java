@@ -98,13 +98,13 @@ class RandomNum {
     public static void main(String[] args) {
         RandomNum rand = new RandomNum(); 
 
-        System.out.println(rand.generate(0));
-        System.out.println(rand.generate(2)); // in <-- 2 , out --> 2^2 = 4
         System.out.println(rand.generate(2));
-        System.out.println(rand.generate(1));
-        System.out.println(rand.generate(3));
         System.out.println(rand.generate(2));
-        System.out.println(rand.generate(3));
+        System.out.println(rand.generate(4));
+        System.out.println(rand.generate(4));
         System.out.println(rand.generate(8));
+        System.out.println(rand.generate(0));
+
+        //rand.showPrimes();
     } 
 }
