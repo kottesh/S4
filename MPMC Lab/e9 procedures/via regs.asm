@@ -2,20 +2,19 @@ org 100h
    
 .data
 input dw 65535
-array db 10 dup(?)
+buf db 10 dup(?)
 cnt db 0
                   
 .code
-mov ax, [input]
+mov ax, input
 mov bx, 10
 call print
 
 ret
 
 print proc
-    mov si, offset array
+    mov si, offset buf
 cont:
-    mov ax, [input]
     xor dx, dx
     div bx         
     add dl, 30h 
@@ -27,6 +26,8 @@ cont:
     mov al, cnt      ; tracking number of digits 
     inc al           ;
     mov cnt, al      ; -------------------------
+    
+    mov ax, [input]  ; update the ax with remaining digits expect last digit.
     
     cmp [input], 0
     jne cont

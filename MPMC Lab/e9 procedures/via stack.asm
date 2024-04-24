@@ -1,16 +1,20 @@
 org 100h
 
 .data
-val dw 567
+val dw 9865
 
 .code
 
-mov ax, val
+mov dx, val
+push dx
+xor dx, dx
 call print
 
-ret
+int 20h     ; exit program.
 
 print proc
+    mov bp, sp
+    mov ax, [bp+2]
     xor cx, cx
     mov bx, 10
     
