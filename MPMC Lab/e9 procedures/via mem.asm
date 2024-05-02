@@ -15,20 +15,20 @@ ret
 print proc
     mov si, offset array
 cont:
-    mov ax, [input]
+    mov ax, input
     xor dx, dx
     div bx         
     add dl, 30h 
     mov [si], dx
     inc si
-    mov [input], ax  ; update input value
+    mov input, ax  ; update input value
     
     xor ax, ax       ; -------------------------
     mov al, cnt      ; tracking number of digits 
     inc al           ;
     mov cnt, al      ; -------------------------
     
-    cmp [input], 0
+    cmp input, 0
     jne cont
     
     dec si
@@ -47,4 +47,4 @@ disp:
     ret
 print endp
 
-end 
+ret

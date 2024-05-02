@@ -23,7 +23,7 @@ print proc
         div bx
         push dx
         xor dx, dx ; clear the dx. otherwise in the next iteration it will consider
-                   ; dx:ax for divide opreation.
+                   ; dx:ax for divide operation.
         cmp ax, 0
         jne lp
     mov ah, 02h

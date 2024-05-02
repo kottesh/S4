@@ -20,16 +20,16 @@ cont:
     add dl, 30h 
     mov [si], dx
     inc si
-    mov [input], ax  ; update input value
+    mov input, ax  ; update input value
     
     xor ax, ax       ; -------------------------
     mov al, cnt      ; tracking number of digits 
     inc al           ;
     mov cnt, al      ; -------------------------
     
-    mov ax, [input]  ; update the ax with remaining digits expect last digit.
+    mov ax, input  ; update the ax with remaining digits expect last digit.
     
-    cmp [input], 0
+    cmp input, 0
     jne cont
     
     dec si
