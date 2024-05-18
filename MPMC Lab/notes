@@ -1,0 +1,4 @@
+movsb both si and cx will get incremented and decremented respectively.
+
+REP -> prefix. only for the string instructions
+

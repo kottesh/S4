@@ -1,6 +1,6 @@
 data segment
-    num1 dw 32765
-    num2 dw -32768
+    num1 dw 40000
+    num2 dw 7000
     buf dw ?
 
     of_msg db "overflow detected...$"
