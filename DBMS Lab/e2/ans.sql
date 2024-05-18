@@ -12,7 +12,7 @@ SELECT DISTINCT designation FROM employee;
 
 -- 12.List the employees who are not eligible for the commission.
 UPDATE employee
-SET commisson = NULL
+SET commission = NULL
 WHERE designation LIKE "%intern";
 
 -- Renaming column
@@ -59,8 +59,11 @@ WHERE salary IN (
 )
 GROUP BY department_no;
 
--- 19.Find the maximum salary in each department having maximum salary of 2000.
-
+-- 19.Find the maximum salary in each department having maximum salary of 150000.
+SELECT department_no, min(salary)
+FROM employee
+GROUP BY department_no
+HAVING max(salary) <= 1500000;
 
 -- 20.List the number of employees.
 SELECT count(*) as EMPLOYEE_COUNT

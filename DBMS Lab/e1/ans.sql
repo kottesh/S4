@@ -49,6 +49,14 @@ VALUES
 INSERT INTO employee(first_name, last_name, designation, manager_name, salary, hire_date, commisson, department_no)
 VALUES
 	('John', 'Smith', 'HR', 'Dravid', 100000, '2004-05-04', 60000, 8987)
+	
+	
+SELECT * FROM employee e
+WHERE e.ID = 4
+
+UPDATE employee
+SET salary = 200000
+WHERE employee.ID = 4;
 
 INSERT INTO employee(first_name, last_name, designation, manager_name, salary, hire_date, commisson, department_no)
 VALUES
