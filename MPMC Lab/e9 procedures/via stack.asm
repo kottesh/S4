@@ -4,7 +4,6 @@ org 100h
 val dw 9865
 
 .code
-
 mov dx, val
 push dx
 xor dx, dx

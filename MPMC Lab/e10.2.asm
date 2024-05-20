@@ -7,7 +7,7 @@ data segment
 ends
 
 stack segment
-    dw   128  dup(0)
+    dw 128  dup(0)
 ends
 
 code segment
