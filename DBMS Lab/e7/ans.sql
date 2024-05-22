@@ -1,7 +1,8 @@
 CREATE TABLE employees (
   emp_id NUMBER PRIMARY KEY,
   emp_name VARCHAR2(100),
-  department VARCHAR2(50));
+  department VARCHAR2(50)
+);
 
 CREATE SEQUENCE emp_seq
   START WITH 1

@@ -12,7 +12,7 @@ CREATE OR REPLACE PACKAGE emp_pkg IS
   PROCEDURE delete_emp(p_emp_id IN employees.emp_id%TYPE);
 END emp_pkg;
 
-CREATE OR REPLACE PACKAGE BODY emp_pkg IS
+CREATE OR REPLACE PACKAGE BODY emp_pkg AS
   PROCEDURE insert_emp(p_emp_id IN employees.emp_id%TYPE, p_emp_name IN employees.emp_name%TYPE, p_department IN employees.department%TYPE) IS
   BEGIN
     INSERT INTO employees (emp_id, emp_name, department) VALUES (p_emp_id, p_emp_name, p_department);
@@ -63,9 +63,9 @@ BEGIN
 END;
 
 BEGIN
-  emp_pkg.insert_emp(p_emp_id => 101, p_emp_name => 'John Doe', p_department => 'IT');
-  emp_pkg.update_emp_dept(p_emp_id => 101, p_department => 'HR');
-  emp_pkg.delete_emp(p_emp_id => 101);
+  emp_pkg.insert_emp(101, 'John Doe', 'IT');
+  emp_pkg.update_emp_dept(101, 'HR');
+  emp_pkg.delete_emp(101);
   
   COMMIT;
 END;
